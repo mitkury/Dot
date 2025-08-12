@@ -1,3 +1,15 @@
+### Overview
+
+This app lets you chat with your documents entirely locally. You pick a folder, the app parses supported files, chunks them, and turns those chunks into embeddings. It stores a local FAISS index. When you ask a question, the app retrieves the most relevant chunks from that index, builds a prompt with that context, and uses a local LLM to generate an answer. The UI streams back both the sources (for example, PDF pages) and the answer text.
+
+- Select a folder to ingest; supported types include PDF, DOCX, PPTX, Markdown, and many code/text formats.
+- Files are split into overlapping chunks and embedded with a lightweight transformer model.
+- A FAISS vector index is saved under your Documents folder for fast local retrieval.
+- Asking a question performs top-k semantic retrieval, prompts a local LLM with that context, and streams the answer.
+- Source documents are surfaced alongside the answer; PDFs are shown inline with page anchors.
+
+The sections below detail the indexing pipeline, the retrieval-augmented chat flow, and where to configure behavior.
+
 ### Attachments analysis/indexing and Doc Chat flow
 
 This document explains how documents (“attachments”) are ingested, analyzed, and indexed, and how “Chat with Docs” (RAG) works end-to-end in this project. It references concrete files, functions, and line numbers.
